@@ -1,9 +1,12 @@
 import math
 
 class Datapoints:
-    def __init__(self):
+    def __init__(self, data = None):
         self.values = {}
         self.devs = {}
+
+        if data is not None:
+            self.addData(data)
 
     def addDatapoint(self, name, value, dev):
         self.values[name] = value
