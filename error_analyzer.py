@@ -5,7 +5,7 @@ class Datapoints:
         self.values = {}
         self.devs = {}
 
-    def addData(self, name, value, dev):
+    def addDatapoint(self, name, value, dev):
         self.values[name] = value
         self.devs[name] = dev
 
