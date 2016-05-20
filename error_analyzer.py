@@ -16,10 +16,9 @@ class Datapoints:
         return self.values[index]
 
 def ErrorBars(f, data):
-    result = 0
+    deviations = (CalcDeviation(f, data, p) for p in data.parameters())
+    result = math.fsum(dev ** 2 for dev in deviations)
 
-    for parameter in data.parameters():
-        result += CalcDeviation(f, data, parameter) ** 2
     return math.sqrt(result)
 
 def CalcDeviation(f, data, parameter):
