@@ -19,7 +19,7 @@ class Datapoints:
             self.addDatapoint(k, point[0], point[1])
 
     def parameters(self):
-        return self.values.keys()
+        return self.values.iterkeys()
 
     def __getitem__(self, index):
         return self.values[index]
