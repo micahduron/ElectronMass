@@ -9,6 +9,12 @@ class Datapoints:
         self.values[name] = value
         self.devs[name] = dev
 
+    def addData(self, data):
+        for k in data.keys():
+            point = data[k]
+
+            self.addDatapoint(k, point[0], point[1])
+
     def parameters(self):
         return self.values.keys()
 
