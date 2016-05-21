@@ -18,7 +18,7 @@ class Datapoints:
 
             self.addDatapoint(param, value, deviation)
 
-    def parameters(self):
+    def params(self):
         return self.values_.iterkeys()
 
     def __getitem__(self, param):
