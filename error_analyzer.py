@@ -2,15 +2,15 @@ import math
 
 class Datapoints:
     def __init__(self, data = None):
-        self.values = {}
-        self.devs = {}
+        self.values_ = {}
+        self.deviations_ = {}
 
         if data is not None:
             self.addData(data)
 
     def addDatapoint(self, name, value, dev):
-        self.values[name] = value
-        self.devs[name] = dev
+        self.values_[name] = value
+        self.deviations_[name] = dev
 
     def addData(self, data):
         for k in data.keys():
@@ -19,10 +19,10 @@ class Datapoints:
             self.addDatapoint(k, point[0], point[1])
 
     def parameters(self):
-        return self.values.iterkeys()
+        return self.values_.iterkeys()
 
     def __getitem__(self, index):
-        return self.values[index]
+        return self.values_[index]
 
 def ErrorBars(f, data):
     deviations = (CalcDeviation(f, data, p) for p in data.parameters())
