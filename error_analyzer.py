@@ -13,7 +13,7 @@ class Datapoints:
         self.deviations_[param] = dev
 
     def addData(self, data):
-        for param in data.keys():
+        for param in data.iterkeys():
             value, deviation = data[param]
 
             self.addDatapoint(param, value, deviation)
