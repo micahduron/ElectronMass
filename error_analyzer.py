@@ -14,15 +14,18 @@ class Datapoints:
 
     def addData(self, data):
         for param in data.iterkeys():
-            value, deviation = data[param]
-
-            self.addDatapoint(param, value, deviation)
+            self[param] = data[param]
 
     def params(self):
         return self.values_.iterkeys()
 
     def __getitem__(self, param):
         return self.values_[param], self.deviations_[param]
+
+    def __setitem__(self, param, datapoint):
+        value, deviation = datapoint
+
+        self.addDatapoint(param, value, deviation)
 
 def ErrorBars(f, data):
     deviations = (CalcDeviation(f, data, p) for p in data.parameters())
