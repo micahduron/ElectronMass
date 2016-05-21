@@ -8,21 +8,21 @@ class Datapoints:
         if data is not None:
             self.addData(data)
 
-    def addDatapoint(self, name, value, dev):
-        self.values_[name] = value
-        self.deviations_[name] = dev
+    def addDatapoint(self, param, value, dev):
+        self.values_[param] = value
+        self.deviations_[param] = dev
 
     def addData(self, data):
-        for k in data.keys():
-            point = data[k]
+        for param in data.keys():
+            point = data[param]
 
-            self.addDatapoint(k, point[0], point[1])
+            self.addDatapoint(param, point[0], point[1])
 
     def parameters(self):
         return self.values_.iterkeys()
 
-    def __getitem__(self, index):
-        return self.values_[index]
+    def __getitem__(self, param):
+        return self.values_[param]
 
 def ErrorBars(f, data):
     deviations = (CalcDeviation(f, data, p) for p in data.parameters())
