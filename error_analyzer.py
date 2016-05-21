@@ -40,7 +40,7 @@ class Datapoints:
             yield param, value, deviation
 
 def ErrorBars(f, data):
-    deviations = (CalcDeviation(f, data, p) for p in data.parameters())
+    deviations = (CalcDeviation(f, data, p) for p in data.params())
     result = math.fsum(dev ** 2 for dev in deviations)
 
     return math.sqrt(result)
