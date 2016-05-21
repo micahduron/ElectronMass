@@ -19,10 +19,10 @@ class Datapoints:
     def params(self):
         return self.values_.iterkeys()
 
-    def values():
+    def values(self):
         return self.values_
 
-    def deviations():
+    def deviations(self):
         return self.deviations_
 
     def __getitem__(self, param):
