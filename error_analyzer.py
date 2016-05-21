@@ -20,10 +20,10 @@ class Datapoints:
         return self.values_.iterkeys()
 
     def values(self):
-        return self.values_
+        return DictView(self.values_)
 
     def deviations(self):
-        return self.deviations_
+        return DictView(self.deviations_)
 
     def __getitem__(self, param):
         return self.values_[param], self.deviations_[param]
@@ -38,6 +38,13 @@ class Datapoints:
             value, deviation = self[param]
 
             yield param, value, deviation
+
+class DictView:
+    def __init__(self, data):
+        self.data = data
+
+    def __getitem__(self, index):
+        return self.data[index]
 
 def ErrorBars(f, data):
     deviations = (CalcDeviation(f, data, p) for p in data.params())
