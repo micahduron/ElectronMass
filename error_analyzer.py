@@ -33,6 +33,12 @@ class Datapoints:
 
         self.addDatapoint(param, value, deviation)
 
+    def __iter__(self):
+        for param in self.params():
+            value, deviation = self[param]
+
+            yield param, value, deviation
+
 def ErrorBars(f, data):
     deviations = (CalcDeviation(f, data, p) for p in data.parameters())
     result = math.fsum(dev ** 2 for dev in deviations)
