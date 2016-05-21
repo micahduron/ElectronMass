@@ -22,7 +22,7 @@ class Datapoints:
         return self.values_.iterkeys()
 
     def __getitem__(self, param):
-        return self.values_[param]
+        return self.values_[param], self.deviations_[param]
 
 def ErrorBars(f, data):
     deviations = (CalcDeviation(f, data, p) for p in data.parameters())
