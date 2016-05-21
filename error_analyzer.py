@@ -53,14 +53,14 @@ def ErrorBars(f, data):
     return math.sqrt(result)
 
 def CalcDeviation(f, data, parameter):
-    originalFVal = f(data)
+    originalFVal = f(data.values())
     originalVal = data.values[parameter]
 
     data.values[parameter] = originalVal + data.devs[parameter]
-    plusDev = abs(originalFVal - f(data))
+    plusDev = abs(originalFVal - f(data.values()))
 
     data.values[parameter] = originalVal - data.devs[parameter]
-    minusDev = abs(originalFVal - f(data))
+    minusDev = abs(originalFVal - f(data.values()))
 
     data.values[parameter] = originalVal
 
