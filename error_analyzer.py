@@ -14,9 +14,9 @@ class Datapoints:
 
     def addData(self, data):
         for param in data.keys():
-            point = data[param]
+            value, deviation = data[param]
 
-            self.addDatapoint(param, point[0], point[1])
+            self.addDatapoint(param, value, deviation)
 
     def parameters(self):
         return self.values_.iterkeys()
