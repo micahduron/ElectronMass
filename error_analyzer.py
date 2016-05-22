@@ -40,7 +40,7 @@ class Datapoints(object):
 
             yield param, value, deviation
 
-class DictView:
+class DictView(object):
     def __init__(self, data):
         self.data = data
 
