@@ -1,8 +1,6 @@
 import sys
 import math
 
-InitH = math.pow(sys.float_info.epsilon, 1.0 / 3)
-
 class Datapoints(object):
     def __init__(self, data = None):
         self._values = {}
@@ -59,6 +57,9 @@ def CalcDeviation(f, data, parameter):
     derivative = CalcDerivative(f, data, parameter)
 
     return derivative * data._deviations[parameter]
+
+# Used in CalcDerivative to calculate the optimal value of h.
+InitH = math.pow(sys.float_info.epsilon, 1.0 / 3)
 
 def CalcDerivative(f, data, parameter):
     paramValue = data._values[parameter]
