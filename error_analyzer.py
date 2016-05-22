@@ -65,3 +65,13 @@ def CalcDeviation(f, data, parameter):
     data._values[parameter] = originalVal
 
     return max(plusDev, minusDev)
+
+def ModifyAndExecute(f, data, param, paramValue):
+    origValue = data._values[param]
+    data._values[param] = paramValue
+
+    retVal = f(data.values())
+
+    data._values[param] = origValue
+
+    return retVal
