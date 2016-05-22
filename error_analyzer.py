@@ -1,4 +1,7 @@
+import sys
 import math
+
+InitH = math.pow(sys.float_info.epsilon, 1.0 / 3)
 
 class Datapoints(object):
     def __init__(self, data = None):
@@ -53,17 +56,20 @@ def ErrorBars(f, data):
     return math.sqrt(result)
 
 def CalcDeviation(f, data, parameter):
-    originalFVal = f(data.values())
+    derivative = CalcDerivative(f, data, parameter)
 
-    origValue, deviation = data[parameter]
+    return derivative * data._deviations[parameter]
 
-    upperValue = ModifyAndExecute(f, data, parameter, origValue + deviation)
-    plusDev = abs(originalFVal - upperValue)
+def CalcDerivative(f, data, parameter):
+    paramValue = data._values[parameter]
 
-    lowerValue = ModifyAndExecute(f, data, parameter, origValue - deviation)
-    minusDev = abs(originalFVal - lowerValue)
+    hPrime = InitH * max(abs(paramValue), 1)
+    h = ((paramValue + hPrime) - (paramValue - hPrime)) / 2
 
-    return max(plusDev, minusDev)
+    rightValue = ModifyAndExecute(f, data, parameter, paramValue + h)
+    leftValue = ModifyAndExecute(f, data, parameter, paramValue - h)
+
+    return (rightValue - leftValue) / (2 * h)
 
 def ModifyAndExecute(f, data, param, paramValue):
     origValue = data._values[param]
