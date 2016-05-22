@@ -48,7 +48,7 @@ def CalcBohrConstant(PhotonEnergy, EnergyLevel):
     return PhotonEnergy / (1.0 / 4 - 1.0 / (EnergyLevel ** 2))
 
 def AverageData(data, deviation):
-    avg = float(sum(data)) / len(data)
+    avg = math.fsum(data) / len(data)
     dev = deviation / math.sqrt(len(data))
 
     return avg, dev
