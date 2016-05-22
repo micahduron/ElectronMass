@@ -53,13 +53,13 @@ def AverageData(data, deviation):
 
     return avg, dev
 
-def deg(degrees, minutes = 0, seconds = 0):
+def deg(degrees = 0, minutes = 0, seconds = 0):
     return float(degrees + minutes / 60.0 + seconds / 3600.0)
 
 def main():
     data = Datapoints()
 
-    AngleDev = 2.0 / 60
+    AngleDev = deg(minutes=2)
 
     data['HgBlueLeft']  = AverageData((deg(164,49), deg(164,48), deg(164,46)), AngleDev)
     data['HgBlueRight'] = AverageData((deg(195,22), deg(195,19), deg(195,20)), AngleDev)
