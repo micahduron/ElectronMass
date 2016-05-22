@@ -1,6 +1,6 @@
 import math
 
-class Datapoints:
+class Datapoints(object):
     def __init__(self, data = None):
         self.values_ = {}
         self.deviations_ = {}
