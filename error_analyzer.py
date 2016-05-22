@@ -54,15 +54,14 @@ def ErrorBars(f, data):
 
 def CalcDeviation(f, data, parameter):
     originalFVal = f(data.values())
-    originalVal = data._values[parameter]
 
-    data._values[parameter] = originalVal + data._deviations[parameter]
-    plusDev = abs(originalFVal - f(data.values()))
+    origValue, deviation = data[parameter]
 
-    data._values[parameter] = originalVal - data._deviations[parameter]
-    minusDev = abs(originalFVal - f(data.values()))
+    upperValue = ModifyAndExecute(f, data, parameter, origValue + deviation)
+    plusDev = abs(originalFVal - upperValue)
 
-    data._values[parameter] = originalVal
+    lowerValue = ModifyAndExecute(f, data, parameter, origValue - deviation)
+    minusDev = abs(originalFVal - lowerValue)
 
     return max(plusDev, minusDev)
 
