@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 
 import math
+import csv
+import re
 
 from error_analyzer import *
 
@@ -47,35 +49,48 @@ def CalcHLambda(HAngle, HgAngle, HgLambda):
 def CalcBohrConstant(PhotonEnergy, EnergyLevel):
     return PhotonEnergy / (1.0 / 4 - 1.0 / (EnergyLevel ** 2))
 
+def FetchData(csvFile):
+    data = Datapoints()
+
+    with open(csvFile, 'r') as file:
+        rows = csv.DictReader(file, restkey='dataVals')
+
+        for row in rows:
+            dataVals = map(ParseDegree, row['dataVals'])
+            deviation = ParseDegree(row['Deviation'])
+
+            data[row['Parameter']] = AverageData(dataVals, deviation)
+    return data
+
 def AverageData(data, deviation):
     avg = math.fsum(data) / len(data)
     dev = deviation / math.sqrt(len(data))
 
     return avg, dev
 
+DegreeRegex = re.compile('^(?P<degrees>\d+)?(\'(?P<minutes>\d+))?(\'\'(?P<seconds>\d+))?$')
+
+def ParseDegree(degString):
+    matches = DegreeRegex.match(degString)
+
+    # Assume searchResults returns something valid for now
+
+    d = GetAnglePart(matches, 'degrees')
+    m = GetAnglePart(matches, 'minutes')
+    s = GetAnglePart(matches, 'seconds')
+
+    return deg(degrees=d, minutes=m, seconds=s)
+
+def GetAnglePart(matches, matchId, defaultVal = 0):
+    matchStr = matches.group(matchId)
+
+    return float(matchStr if matchStr is not None else defaultVal)
+
 def deg(degrees = 0, minutes = 0, seconds = 0):
     return float(degrees + minutes / 60.0 + seconds / 3600.0)
 
 def main():
-    data = Datapoints()
-
-    AngleDev = deg(minutes=2)
-
-    data['HgBlueLeft']  = AverageData((deg(164,49), deg(164,48), deg(164,46)), AngleDev)
-    data['HgBlueRight'] = AverageData((deg(195,22), deg(195,19), deg(195,20)), AngleDev)
-
-    data['HgBGLeft']    = AverageData((deg(162,47), deg(162,47), deg(162,45)), AngleDev)
-    data['HgBGRight']   = AverageData((deg(197,19), deg(197,18)), AngleDev)
-
-    data['HPurpLeft']   = AverageData((deg(164,50), deg(164,50), deg(164,50)), AngleDev)
-    data['HPurpRight']  = AverageData((deg(195,13), deg(195,14)), AngleDev)
-
-    data['HPurpN']      = (5, 0)
-
-    data['HBGLeft']     = AverageData((deg(197,5), deg(197,6), deg(197,6)), AngleDev)
-    data['HBGRight']    = AverageData((deg(162,59), deg(162,59), deg(162,59)), AngleDev)
-
-    data['HBGN']        = (4, 0)
+    data = FetchData('electron_data.csv')
 
     print 'Mass: ', ElectronMass(data.values())
     print 'Error: ', ErrorBars(ElectronMass, data)
