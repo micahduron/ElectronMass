@@ -2,31 +2,31 @@ import math
 
 class Datapoints(object):
     def __init__(self, data = None):
-        self.values_ = {}
-        self.deviations_ = {}
+        self._values = {}
+        self._deviations = {}
 
         if data is not None:
             self.addData(data)
 
     def addDatapoint(self, param, value, dev):
-        self.values_[param] = value
-        self.deviations_[param] = dev
+        self._values[param] = value
+        self._deviations[param] = dev
 
     def addData(self, data):
         for param in data.iterkeys():
             self[param] = data[param]
 
     def params(self):
-        return self.values_.iterkeys()
+        return self._values.iterkeys()
 
     def values(self):
-        return DictView(self.values_)
+        return DictView(self._values)
 
     def deviations(self):
-        return DictView(self.deviations_)
+        return DictView(self._deviations)
 
     def __getitem__(self, param):
-        return self.values_[param], self.deviations_[param]
+        return self._values[param], self._deviations[param]
 
     def __setitem__(self, param, datapoint):
         value, deviation = datapoint
@@ -54,14 +54,14 @@ def ErrorBars(f, data):
 
 def CalcDeviation(f, data, parameter):
     originalFVal = f(data.values())
-    originalVal = data.values_[parameter]
+    originalVal = data._values[parameter]
 
-    data.values_[parameter] = originalVal + data.deviations_[parameter]
+    data._values[parameter] = originalVal + data._deviations[parameter]
     plusDev = abs(originalFVal - f(data.values()))
 
-    data.values_[parameter] = originalVal - data.deviations_[parameter]
+    data._values[parameter] = originalVal - data._deviations[parameter]
     minusDev = abs(originalFVal - f(data.values()))
 
-    data.values_[parameter] = originalVal
+    data._values[parameter] = originalVal
 
     return max(plusDev, minusDev)
