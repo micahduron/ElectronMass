@@ -63,6 +63,7 @@ def CalcDeviation(f, data, parameter):
 def CalcDerivative(f, data, parameter):
     paramValue = data._values[parameter]
 
+    # Numerical differentiation technique courtesy of Karen A. Kopecky.
     hPrime = InitH * max(abs(paramValue), 1)
     h = ((paramValue + hPrime) - (paramValue - hPrime)) / 2
 
