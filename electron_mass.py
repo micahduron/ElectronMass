@@ -68,16 +68,21 @@ def AverageData(data, deviation):
 
     return avg, dev
 
-DegreeRegex = re.compile('^(?P<degrees>\d+)?(\'(?P<minutes>\d+))?(\'\'(?P<seconds>\d+))?$')
+DegreeRegex = re.compile('^((?P<degrees>\d+)d)?((?P<minutes>\d+)m)?((?P<seconds>\d+)s)?$')
 
 def ParseDegree(degString):
+    d = 0
+    m = 0
+    s = 0
+
     matches = DegreeRegex.match(degString)
 
-    # Assume searchResults returns something valid for now
-
-    d = GetAnglePart(matches, 'degrees')
-    m = GetAnglePart(matches, 'minutes')
-    s = GetAnglePart(matches, 'seconds')
+    if matches is not None:
+        d = GetAnglePart(matches, 'degrees')
+        m = GetAnglePart(matches, 'minutes')
+        s = GetAnglePart(matches, 'seconds')
+    else:
+        d = float(degString)
 
     return deg(degrees=d, minutes=m, seconds=s)
 
