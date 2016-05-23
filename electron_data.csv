@@ -1,0 +1,11 @@
+Parameter,Type,Deviation,Data
+HgBlueLeft,Angle,2m,"164d49m,164d48m,164d46m"
+HgBlueRight,Angle,2m,"195d22m,195d19m,195d20m"
+HgBGLeft,Angle,2m,"162d47m,162d47m,162d45m"
+HgBGRight,Angle,2m,"197d19m,197d18m"
+HyPurpLeft,Angle,2m,"164d50m,164d50m,164d50m"
+HyPurpRight,Angle,2m,"195d13m,195d14m"
+HyBGLeft,Angle,2m,"197d5m,197d6m,197d6m"
+HyBGRight,Angle,2m,"162d59m,162d59m,162d59m"
+HyBGN,Raw,0,4
+HyPurpN,Raw,0,5
