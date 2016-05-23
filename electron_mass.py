@@ -20,8 +20,8 @@ def ElectronMass(args):
     HgBlueAngle = abs(args['HgBlueLeft'] - args['HgBlueRight']) / 2
     HgBGAngle = abs(args['HgBGLeft'] - args['HgBGRight']) / 2
 
-    HPurpAngle = abs(args['HPurpLeft'] - args['HPurpRight']) / 2
-    HBGAngle = abs(args['HBGLeft'] - args['HBGRight']) / 2
+    HPurpAngle = abs(args['HyPurpLeft'] - args['HyPurpRight']) / 2
+    HBGAngle = abs(args['HyBGLeft'] - args['HyBGRight']) / 2
 
     HPurpLambda = CalcHLambda(HPurpAngle, HgBlueAngle, HgBlueLambda)
     HBGLambda = CalcHLambda(HBGAngle, HgBGAngle, HgBGLambda)
@@ -29,8 +29,8 @@ def ElectronMass(args):
     HPurpEnergy = PlanckC * LightSpeed / HPurpLambda
     HBGEnergy = PlanckC * LightSpeed / HBGLambda
 
-    HPurpBohrC = CalcBohrConstant(HPurpEnergy, args['HPurpN'])
-    HBGBohrC = CalcBohrConstant(HBGEnergy, args['HBGN'])
+    HPurpBohrC = CalcBohrConstant(HPurpEnergy, args['HyPurpN'])
+    HBGBohrC = CalcBohrConstant(HBGEnergy, args['HyBGN'])
 
     AvgBohrC = (HPurpBohrC + HBGBohrC) / 2
 
