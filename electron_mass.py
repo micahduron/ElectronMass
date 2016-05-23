@@ -53,14 +53,23 @@ def FetchData(csvFile):
     data = Datapoints()
 
     with open(csvFile, 'r') as file:
-        rows = csv.DictReader(file, restkey='dataVals')
+        rows = csv.DictReader(file)
 
         for row in rows:
-            dataVals = map(ParseDegree, row['dataVals'])
-            deviation = ParseDegree(row['Deviation'])
-
-            data[row['Parameter']] = AverageData(dataVals, deviation)
+            ProcessRow(data, row)
     return data
+
+def ProcessRow(data, row):
+    if row['Type'] == 'Angle':
+        angles = map(ParseDegree, row['Data'].split(','))
+        deviation = ParseDegree(row['Deviation'])
+
+        data[row['Parameter']] = AverageData(angles, deviation)
+    elif row['Type'] == 'Raw':
+        value = int(row['Data'])
+        deviation = int(row['Deviation'])
+
+        data[row['Parameter']] = (value, deviation)
 
 def AverageData(data, deviation):
     avg = math.fsum(data) / len(data)
