@@ -16,6 +16,12 @@ ProtonMass = 1.6726e-27
 HgBlueLambda = 435.833
 HgBGLambda = 491.604
 
+def main():
+    data = FetchData('electron_data.csv')
+
+    print 'Mass: ', ElectronMass(data.values())
+    print 'Error: ', ErrorBars(ElectronMass, data)
+
 def ElectronMass(args):
     HgBlueAngle = abs(args['HgBlueLeft'] - args['HgBlueRight']) / 2
     HgBGAngle = abs(args['HgBGLeft'] - args['HgBGRight']) / 2
@@ -102,12 +108,6 @@ def GetAnglePart(matches, matchId, defaultVal = 0):
 
 def deg(degrees = 0, minutes = 0, seconds = 0):
     return float(degrees + minutes / 60.0 + seconds / 3600.0)
-
-def main():
-    data = FetchData('electron_data.csv')
-
-    print 'Mass: ', ElectronMass(data.values())
-    print 'Error: ', ErrorBars(ElectronMass, data)
 
 if __name__ == '__main__':
     main()
