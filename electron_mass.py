@@ -61,8 +61,8 @@ def FetchData(csvFile):
 
 def ProcessRow(data, row):
     if row['Type'] == 'Angle':
-        angles = map(ParseDegree, row['Data'].split(','))
-        deviation = ParseDegree(row['Deviation'])
+        angles = map(ParseAngle, row['Data'].split(','))
+        deviation = ParseAngle(row['Deviation'])
 
         data[row['Parameter']] = AverageData(angles, deviation)
     elif row['Type'] == 'Raw':
@@ -79,7 +79,7 @@ def AverageData(data, deviation):
 
 DegreeRegex = re.compile('^((?P<degrees>\d+)d)?((?P<minutes>\d+)m)?((?P<seconds>\d+)s)?$')
 
-def ParseDegree(degString):
+def ParseAngle(degString):
     d = 0
     m = 0
     s = 0
