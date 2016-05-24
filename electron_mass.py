@@ -40,8 +40,10 @@ def ElectronMass(args):
 
     AvgBohrC = (HPurpBohrC + HBGBohrC) / 2
 
+    # This is really the reduced mass of the system.
     MeasuredMass = (2 * (ReducedPlanckC ** 2) * AvgBohrC) / ((CoulombC ** 2) * (FundCharge ** 4))
 
+    # This is a calculation to obtain the true mass from the reduced mass.
     CorrectedMass = MeasuredMass / (1 - MeasuredMass / ProtonMass)
 
     return CorrectedMass
