@@ -78,6 +78,7 @@ def ProcessRow(data, row):
         deviation = float(row['Deviation'])
 
         return (value, deviation)
+    raise ValueError('Invalid type value.')
 
 def AverageData(data, deviation):
     avg = math.fsum(data) / len(data)
