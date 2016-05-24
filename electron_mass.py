@@ -42,9 +42,9 @@ def ElectronMass(args):
 
     MeasuredMass = (2 * (ReducedPlanckC ** 2) * AvgBohrC) / ((CoulombC ** 2) * (FundCharge ** 4))
 
-    CalculatedMass = MeasuredMass / (1 - MeasuredMass / ProtonMass)
+    CorrectedMass = MeasuredMass / (1 - MeasuredMass / ProtonMass)
 
-    return CalculatedMass
+    return CorrectedMass
 
 def CalcHLambda(HAngle, HgAngle, HgLambda):
     HAngleRad = math.radians(HAngle)
