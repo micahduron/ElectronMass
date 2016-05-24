@@ -74,8 +74,8 @@ def ProcessRow(data, row):
 
         data[row['Parameter']] = AverageData(angles, deviation)
     elif row['Type'] == 'Raw':
-        value = int(row['Data'])
-        deviation = int(row['Deviation'])
+        value = float(row['Data'])
+        deviation = float(row['Deviation'])
 
         data[row['Parameter']] = (value, deviation)
 
