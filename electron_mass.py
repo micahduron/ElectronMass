@@ -64,7 +64,7 @@ def FetchData(csvFile):
         rows = csv.DictReader(file)
 
         for row in rows:
-            ProcessRow(data, row)
+            data[row['Parameter']] = ProcessRow(data, row)
     return data
 
 def ProcessRow(data, row):
@@ -72,12 +72,12 @@ def ProcessRow(data, row):
         angles = map(ParseAngle, row['Data'].split(','))
         deviation = ParseAngle(row['Deviation'])
 
-        data[row['Parameter']] = AverageData(angles, deviation)
+        return AverageData(angles, deviation)
     elif row['Type'] == 'Raw':
         value = float(row['Data'])
         deviation = float(row['Deviation'])
 
-        data[row['Parameter']] = (value, deviation)
+        return (value, deviation)
 
 def AverageData(data, deviation):
     avg = math.fsum(data) / len(data)
