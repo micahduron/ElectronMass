@@ -64,7 +64,9 @@ InitH = math.pow(sys.float_info.epsilon, 1.0 / 3)
 def CalcDerivative(f, data, parameter):
     paramValue = data._values[parameter]
 
-    # Numerical differentiation technique courtesy of Karen A. Kopecky.
+    # Numerical differentiation via two-sided difference quotient
+    # Special thanks to Karen Kopecky
+    # Paper: http://www.karenkopecky.net/Teaching/eco613614/Notes_NumericalDifferentiation.pdf
     hPrime = InitH * max(abs(paramValue), 1)
     h = ((paramValue + hPrime) - (paramValue - hPrime)) / 2
 
