@@ -9,14 +9,14 @@ of the mass calculation.
 This script was written for my General Physics III course
 in community college.
 
-# How it works
+## How it works
 
 The mass calculation involves plugging the collected values
 into derived equations. The experimental error is calculated
-by the formula for propagation of errors which requires the
-derivative of the mass function for each variable. Derivatives
-are calculated via numerical differentiation.
+via standard propagation of errors, for which each partial
+derivative of the mass function must be known. A numerical
+differentiation technique is used to calculate these derivatives.
 
-# License
+## License
 
 MIT License
