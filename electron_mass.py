@@ -64,10 +64,10 @@ def FetchData(csvFile):
         rows = csv.DictReader(file)
 
         for row in rows:
-            data[row['Parameter']] = ProcessRow(data, row)
+            data[row['Parameter']] = ProcessRow(row)
     return data
 
-def ProcessRow(data, row):
+def ProcessRow(row):
     if row['Type'] == 'Angle':
         angles = map(ParseAngle, row['Data'].split(','))
         deviation = ParseAngle(row['Deviation'])
